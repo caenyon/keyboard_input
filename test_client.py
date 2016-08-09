@@ -1,6 +1,8 @@
 # coding=utf-8
 
+# noinspection PyUnresolvedReferences
 import future
+# noinspection PyCompatibility
 from tkinter import *
 
 
