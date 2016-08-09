@@ -28,6 +28,10 @@ class XInputSendContext(object):
         # send event to the window that has the input focus
         focus_window.send_event(event)
 
+    def close(self):
+        # close the connection to the x server
+        self.display.close()
+
 
 if __name__ == '__main__':
 
@@ -37,3 +41,6 @@ if __name__ == '__main__':
     # press and release key 53 ('x' character)
     x.send_key_event(53, key_down=True)
     x.send_key_event(53, key_down=False)
+
+    # close connection
+    x.close()

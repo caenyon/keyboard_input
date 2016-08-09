@@ -24,6 +24,10 @@ class XTestSendContext(object):
         # sync connection to ensure that the input is actually sent to the x server
         self.display.sync()
 
+    def close(self):
+        # close the connection to the x server
+        self.display.close()
+
 
 if __name__ == '__main__':
 
@@ -33,3 +37,6 @@ if __name__ == '__main__':
     # press and release key 53 ('x' character)
     x.send_key_event(53, key_down=True)
     x.send_key_event(53, key_down=False)
+
+    # close connection
+    x.close()
