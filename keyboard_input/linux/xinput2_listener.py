@@ -3,6 +3,9 @@
 from Xlib.display import Display
 from Xlib.ext import xinput, xtest
 
+KEYBOARD_MASTER = 3
+EXIT_KEY = 127  # Pause-Key
+
 
 class DeviceListener(object):
     def __init__(self):
@@ -13,17 +16,21 @@ class DeviceListener(object):
         extension_info = self.display.query_extension('XInputExtension')
         self.xinput_major = extension_info.major_opcode
 
+        self.device = None
+
         v = xinput.query_version(self.display)
         print("Version: {}, {}".format(v.major_version, v.minor_version))
 
         self.select_device()
 
     def select_device(self, device=None):
+        self.device = device
         mask = xinput.KeyPressMask + xinput.KeyReleaseMask
         if device is None:
             xinput.select_events(self.win_root, ((xinput.AllDevices, mask),))
         else:
             xinput.select_events(self.win_root, ((device, mask), (xinput.AllDevices, 0)))
+            self.display.xinput_detach_slave(device)
 
     def event_loop(self):
         while True:
@@ -41,7 +48,7 @@ class DeviceListener(object):
 
     def handle_event(self, event):
         print("Event: {}, {}, {}".format(event.evtype, event.data.detail, event.data.deviceid))
-        return not event.data.detail == 9
+        return not event.data.detail == EXIT_KEY
 
     def send_event(self, key_code, key_down):
         xtest.fake_input(self.display,
@@ -49,6 +56,7 @@ class DeviceListener(object):
                          detail=key_code)
 
     def close(self):
+        self.display.xinput_attach_slave(self.device, KEYBOARD_MASTER)
         self.display.close()
 
 
