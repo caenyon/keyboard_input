@@ -47,7 +47,8 @@ class DeviceListener(object):
             return event.data.deviceid
 
     def handle_event(self, event):
-        print("Event: {}, {}, {}".format(event.evtype, event.data.detail, event.data.deviceid))
+        self.send_event(event.data.detail, event.evtype == 2)
+        # print("Event: {}, {}, {}".format(event.evtype, event.data.detail, event.data.deviceid))
         return not event.data.detail == EXIT_KEY
 
     def send_event(self, key_code, key_down):
