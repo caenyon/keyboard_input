@@ -36,7 +36,7 @@ class XInputSendContext(object):
 
     def send_key_event(self, key_code, key_down):
         """
-        Sends a key event to the focused window using Xlibs send_input method.
+        Sends a key event to the focused window using python-xlibs send_input method.
 
         :param key_code: Integer code of the key event that should be sent
         :param key_down: True = key press event, False = key release event
