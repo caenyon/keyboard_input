@@ -1,7 +1,6 @@
 # coding=utf-8
 import signal
 import sys
-from Xlib.ext import xinput
 from Xlib.display import Display
 from Xlib import X
 
