@@ -1,7 +1,6 @@
 # coding=utf-8
 """
-This module contains a simple program that uses the uinput python package to create a new
- user-space input device. This device can then be used to emit key events.
+This program uses the uinput python package to create a new user-space input device to emit key events.
 
  Properties:
  - requires uinput python package
